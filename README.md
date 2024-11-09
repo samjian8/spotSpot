@@ -2,7 +2,7 @@ Setup
 1. Git Clone
 Clone the repository in your local machine using the following command
 
-git clone https://github.com/SaarthRajan/float-n-pose.git
+git clone https://github.com/tonizeng/spotSpot.git
 
 2. Install requirements
 Go into the spotspot directory and install the requirements using the following command
