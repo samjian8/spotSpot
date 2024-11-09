@@ -4,9 +4,8 @@ import cv2 # type: ignore
 from PIL import Image # type: ignore
 import numpy as np # type: ignore
 
-
 # Page Title
-st.set_page_config(page_title="spotSpot", page_icon="", layout="wide")
+st.set_page_config(page_title="spotSpot", page_icon="sslogo.png", layout="wide")
 
 # Use Local CSS
 def local_css(file_name):
