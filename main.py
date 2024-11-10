@@ -3,8 +3,12 @@ import streamlit as st  # type: ignore
 import cv2  # type: ignore
 from PIL import Image  # type: ignore
 import numpy as np  # type: ignore
+import json
 
-
+# Load the skincare recommendations from the file
+with open("recommendations.txt", "r") as file:
+    skincare_recommendations = json.load(file)
+    
 # Page Title
 st.set_page_config(page_title="spotSpot", page_icon="sslogo.png", layout="wide")
 
@@ -17,6 +21,7 @@ local_css("style/style.css")
 
 def analyze_acne(image):
     # Dummy function to simulate backend analysis
+    # CALL THE FUNCTION
     return "Acne Type: Example Type"
 
 st.markdown(
@@ -81,25 +86,6 @@ st.markdown(
 with st.container():
     left_column, right_column = st.columns(2)
 
-with right_column:
-    st.markdown(
-        """
-        <div style="color: white; font-size: 24px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
-            -> Your Skincare Issues
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        """
-        <div style="color: white; font-size: 24px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
-            -> Your Recommended Skincare Regimen
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
 with left_column:
     # Initialize session states if not already done
     if "photo_captured" not in st.session_state:
@@ -118,20 +104,46 @@ with left_column:
         elif uploaded_file is not None:
             st.session_state.photo_captured = uploaded_file
 
-        if st.button("Analyze"):
+        if st.button("Generate Analysis Results"):
             # Check if a photo is captured or uploaded
             if st.session_state.photo_captured is not None:
                 img = Image.open(st.session_state.photo_captured)
                 img_array = np.array(img) # do testing to make sure it is takign the image that exists
 
                 # Send the image to the backend for analysis (dummy function here)
-                result = analyze_acne(img_array)
-
-                # Display the result
-                st.write("Analysis Result:")
-                st.write(result)
+                acne_issue = analyze_acne(img_array)
+                st.session_state.acne_issue = acne_issue
             else:
                 st.error("Please capture or upload a photo first.")
+
+with right_column:
+    issue = "Rosacea"  # Placeholder for the detected issue
+    st.markdown(
+        f"""
+        <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 505px; overflow-y: auto;">
+            <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                Your Skin Issue(s)
+            </div>
+            <div style='font-size: 14px; color: white;'>
+                Detected Skin Issue: <strong>{issue}</strong>
+            </div>
+            <br>
+            <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                Your Recommended Skincare Regimen
+            </div>
+            <div style="font-size: 20px; font-weight: bold;">Routine</div>
+            {"".join([f"<div style='font-size: 14px;'>- <strong>{step}</strong>: {description}</div>" for step, description in skincare_recommendations[issue]["Routine"].items()])}
+            <div style="font-size: 20px; font-weight: bold;">Best Ingredients</div>
+            {"".join([f"<div style='font-size: 14px;'>- {ingredient}</div>" for ingredient in skincare_recommendations[issue]["Best Ingredients"]])}
+            <div style="font-size: 20px; font-weight: bold;">Avoid</div>
+            {"".join([f"<div style='font-size: 14px;'>- {item}</div>" for item in skincare_recommendations[issue]["Avoid"]])}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+
 
 with st.container():
     st.subheader('''Follow the steps below to get started: ''')
@@ -139,5 +151,5 @@ with st.container():
         \n1. Live Preview: Use the live camera feed to position your face. 
         \n2. Capture Photo: Click the “Capture” button to take a photo. 
         \n3. Recapture: If you’re not satisfied with the photo, click "Clear Photo" to try again. 
-        \n4. Analyse: Once you’re happy with the photo, click “Analyze” to send it for analysis. 
+        \n4. Analyze: Once you’re happy with the photo, click “Analyze” to send it for analysis. 
         \n5. Results: View the analysis results and get insights into your acne type.''')

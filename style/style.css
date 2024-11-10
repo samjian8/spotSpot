@@ -40,13 +40,14 @@ input[type=message], input[type=email], input[type=text], textarea {
     cursor: pointer;
   }
   
+  
   /* When moving the mouse over the submit button, add a darker green color */
   button[type=submit]:hover {
     background-color: #78a3d0;
   }
   
   p {
-    font-size: 14px;
+    font-size: 16px;
   }
   
   /* Hide Streamlit Branding */
