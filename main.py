@@ -124,7 +124,7 @@ st.markdown(
         background: linear-gradient(100deg, #1e4482, #537fad);
         border-radius: 30px;
         color: white;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: bold;
         width: calc(100% - 20px);
         margin: 20px 0px;
@@ -209,7 +209,7 @@ with right_column:
         if issue == "Clear Skin":
             st.markdown(
                 f"""
-                <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 520px; overflow-y: auto;">
+                <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 100%; overflow-y: auto;">
                     <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
                         Your Skin Status
                     </div>
@@ -316,7 +316,7 @@ with right_column:
         """
         <style>
         .fixed-height-image {
-            height: 110px;  /* Set the total height of the container */
+            height: 100px;  /* Set the total height of the container */
             display: flex;
             justify-content: center;  /* Centers the image horizontally */
             align-items: center;  /* Centers the image vertically */
