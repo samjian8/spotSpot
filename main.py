@@ -5,11 +5,52 @@ from PIL import Image  # type: ignore
 import numpy as np  # type: ignore
 import json
 import base64
+import torch
+from torchvision import transforms, models
 
 # Load the skincare recommendations from the file
 with open("recommendations.txt", "r") as file:
     skincare_recommendations = json.load(file)
     
+# Load the pre-trained model only once
+num_classes = 7
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = models.shufflenet_v2_x0_5(pretrained=False)  # Use the model architecture you trained
+model.fc = torch.nn.Linear(model.fc.in_features, num_classes)  # Modify the final layer as needed
+model.load_state_dict(torch.load('model.pth'))  # Load the saved model weights
+model = model.to(device)  # Move the model to the correct device
+model.eval()  # Set the model to evaluation mode
+
+# Define image transformations
+transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+def analyze_acne(image):
+    # Convert numpy array to PIL Image and ensure RGB format
+    if isinstance(image, np.ndarray):
+        image = Image.fromarray(image)
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    
+    # Apply transformations
+    image_tensor = transform(image).unsqueeze(0).to(device)
+    
+    # Perform inference
+    with torch.no_grad():
+        outputs = model(image_tensor)
+        _, predicted_class = torch.max(outputs, 1)
+    
+    # Updated class labels
+    classes = ['Blackheads', 'Clear Skin', 'Cystic', 'Papules', 'Pustules', 'Rosacea', 'Whiteheads']
+    class_label = classes[predicted_class.item()]
+    
+    return class_label
+
+
+
 # Page Title
 st.set_page_config(page_title="spotSpot", page_icon="sslogo.png", layout="wide")
 
@@ -19,11 +60,6 @@ def local_css(file_name):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 local_css("style/style.css")
-
-def analyze_acne(image):
-    # Dummy function to simulate backend analysis
-    # CALL THE FUNCTION
-    return "Acne Type: Example Type"
 
 # Load the image and convert it to base64
 def get_base64_image(image_path):
@@ -124,12 +160,15 @@ st.markdown(
 
 with st.container():
     left_column, right_column = st.columns(2)
+## fix the before
+# Initialize session state variables if not already done
+if "photo_captured" not in st.session_state:
+    st.session_state.photo_captured = None
+if "acne_issue" not in st.session_state:
+    st.session_state.acne_issue = ""  # Initialize with an empty string
+
 
 with left_column:
-    # Initialize session states if not already done
-    if "photo_captured" not in st.session_state:
-        st.session_state.photo_captured = None
-
     with st.container():
         # Option to take a photo using the camera
         camera = st.camera_input("Take a close up of the problem spots on your face.")
@@ -147,39 +186,94 @@ with left_column:
             # Check if a photo is captured or uploaded
             if st.session_state.photo_captured is not None:
                 img = Image.open(st.session_state.photo_captured)
-                img_array = np.array(img) # do testing to make sure it is takign the image that exists
+                img_array = np.array(img)  # Convert image to numpy array
 
-                # Send the image to the backend for analysis (dummy function here)
-                acne_issue = analyze_acne(img_array)
-                st.session_state.acne_issue = acne_issue
+                # Send the image to the backend for analysis and store the result in session state
+                st.session_state.acne_issue = analyze_acne(img_array)
             else:
                 st.error("Please capture or upload a photo first.")
 
 with right_column:
-    issue = "Rosacea"  # Placeholder for the detected issue
-    st.markdown(
-        f"""
-        <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 520px; overflow-y: auto;">
-            <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
-                Your Skin Issue(s)
+    # Only display results if the acne issue has been detected (button was pressed and analysis ran)
+    if st.session_state.acne_issue:
+        issue = st.session_state.acne_issue
+
+        # Retrieve data from skincare recommendations
+        skincare_info = skincare_recommendations.get(issue, {})
+        message = skincare_info.get("Message", "Keep up the good work!")
+        skincare_routine = skincare_info.get("Routine", {})
+        best_ingredients = skincare_info.get("Best Ingredients", [])
+        avoid = skincare_info.get("Avoid", [])
+
+        # Display skincare status and regimen based on the issue detected
+        if issue == "Clear Skin":
+            st.markdown(
+                f"""
+                <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 520px; overflow-y: auto;">
+                    <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                        Your Skin Status
+                    </div>
+                    <div style='font-size: 14px; color: white;'>{message}</div>
+                    <br>
+                    <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                        Your Recommended Skincare Regimen
+                    </div>
+                    <div style="font-size: 20px; font-weight: bold;">Routine</div>
+                    {"".join([f"<div style='font-size: 14px;'>- <strong>{step}</strong>: {description}</div>" for step, description in skincare_routine.items()])}
+                    <div style="font-size: 20px; font-weight: bold;">Best Ingredients</div>
+                    {"".join([f"<div style='font-size: 14px;'>- {ingredient}</div>" for ingredient in best_ingredients])}
+                    <div style="font-size: 20px; font-weight: bold;">Avoid</div>
+                    {"".join([f"<div style='font-size: 14px;'>- {item}</div>" for item in avoid])}       
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f"""
+                <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 520px; overflow-y: auto;">
+                    <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                        Your Skin Issue(s)
+                    </div>
+                    <div style='font-size: 14px; color: white;'>
+                        Detected Skin Issue: <strong>{issue}</strong>
+                    </div>
+                    <br>
+                    <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                        Your Recommended Skincare Regimen
+                    </div>
+                    <div style="font-size: 20px; font-weight: bold;">Routine</div>
+                    {"".join([f"<div style='font-size: 14px;'>- <strong>{step}</strong>: {description}</div>" for step, description in skincare_routine.items()])}
+                    <div style="font-size: 20px; font-weight: bold;">Best Ingredients</div>
+                    {"".join([f"<div style='font-size: 14px;'>- {ingredient}</div>" for ingredient in best_ingredients])}
+                    <div style="font-size: 20px; font-weight: bold;">Avoid</div>
+                    {"".join([f"<div style='font-size: 14px;'>- {item}</div>" for item in avoid])}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+    else:
+        # Display headers with "No issue detected yet" placeholders
+        st.markdown(
+            """
+            <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 520px; overflow-y: auto;">
+                <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                    Your Skin Issue(s)
+                </div>
+                <div style='font-size: 14px; color: white;'>
+                    Follow the steps below to generate your skin issue(s).
+                </div>
+                <br>
+                <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
+                    Your Recommended Skincare Regimen
+                </div>
+                <div style='font-size: 14px; color: white;'>Follow the steps below to generate your recommended skincare regimen.</div>
             </div>
-            <div style='font-size: 14px; color: white;'>
-                Detected Skin Issue: <strong>{issue}</strong>
-            </div>
-            <br>
-            <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
-                Your Recommended Skincare Regimen
-            </div>
-            <div style="font-size: 20px; font-weight: bold;">Routine</div>
-            {"".join([f"<div style='font-size: 14px;'>- <strong>{step}</strong>: {description}</div>" for step, description in skincare_recommendations[issue]["Routine"].items()])}
-            <div style="font-size: 20px; font-weight: bold;">Best Ingredients</div>
-            {"".join([f"<div style='font-size: 14px;'>- {ingredient}</div>" for ingredient in skincare_recommendations[issue]["Best Ingredients"]])}
-            <div style="font-size: 20px; font-weight: bold;">Avoid</div>
-            {"".join([f"<div style='font-size: 14px;'>- {item}</div>" for item in skincare_recommendations[issue]["Avoid"]])}
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            """,
+            unsafe_allow_html=True
+        )
+
 
 st.markdown(
     """
