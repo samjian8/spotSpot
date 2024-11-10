@@ -1,15 +1,22 @@
 Setup
 1. Git Clone
-Clone the repository in your local machine using the following command
+Clone the repository in your local machine using the following command:
 
-git clone https://github.com/tonizeng/spotSpot.git
+```git clone https://github.com/tonizeng/spotSpot.git```
 
-2. Install requirements
-Go into the spotspot directory and install the requirements using the following command
+2. Change the directory to spotSpot by:
 
-pip install -r requirements.txt
+```cd spotSpot```
 
-3. To run the app, use the following command
-streamlit run main.py
+3. Install requirements
+Install the requirements using the following command:
+
+```pip install -r requirements.txt```
+
+3. To run the app, use the following command:
+
+```streamlit run main.py```
+
 or
-python -m streamlit run main.py
+
+```python -m streamlit run main.py```

@@ -238,7 +238,7 @@ with right_column:
         unsafe_allow_html=True
     )
 
-    # Display the image within the centered container
-    st.markdown('<div class="fixed-height-image">', unsafe_allow_html=True)
-    st.image(image, use_container_width=True)  # Set to False if you want the image to be centered based on CSS
-    st.markdown('</div>', unsafe_allow_html=True)
+# Display the image within the centered container
+st.markdown('<div class="fixed-height-image">', unsafe_allow_html=True)
+st.image(image, use_column_width=True)
+st.markdown('</div>', unsafe_allow_html=True)
