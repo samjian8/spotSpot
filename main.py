@@ -4,6 +4,7 @@ import cv2  # type: ignore
 from PIL import Image  # type: ignore
 import numpy as np  # type: ignore
 import json
+import base64
 
 # Load the skincare recommendations from the file
 with open("recommendations.txt", "r") as file:
@@ -24,6 +25,11 @@ def analyze_acne(image):
     # CALL THE FUNCTION
     return "Acne Type: Example Type"
 
+# Load the image and convert it to base64
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+    
 st.markdown(
     """
     <style>
@@ -68,18 +74,51 @@ with st.container():
         unsafe_allow_html=True
     )
 
+# Convert your image to base64
+image_base64 = get_base64_image("sslogo.png")  
+
 st.markdown(
-    """
+    f"""
+    <style>
+    .header-container {{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px;
+        background: linear-gradient(100deg, #1e4482, #537fad);
+        border-radius: 30px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        width: calc(100% - 20px);
+        margin: 20px 0px;
+    }}
+    .header-left {{
+        display: flex;
+        align-items: center;
+    }}
+    .header-left img {{
+        margin-right: 8px;
+        width: 50px;
+        height: 50px;
+    }}
+    </style>
+    
     <div class="header-container">
-        <div class="header-left">spotSpot</div>
-        <div class="header-right">spot the issue, treat with confidence</div>
+        <div class="header-left">
+            <img src="data:image/png;base64,{image_base64}" alt="Icon">
+            spotSpot
+        </div>
+        <div class="header-right">
+            spot the issue, treat with confidence
+        </div>
     </div>
     """,
     unsafe_allow_html=True
 )
 
 st.markdown(
-    "<p style='text-align: left; font-weight: bold;'>Welcome to SpotSpot – your personal virtual dermatologist. Follow the instructions below to get started on your journey to healthier skin.</p>",
+    "<p style='text-align: left; font-weight: bold;'>Welcome to spotSpot – your personal virtual dermatologist. Follow the instructions below to get started on your journey to healthier skin.</p>",
     unsafe_allow_html=True
 )
 
