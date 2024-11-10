@@ -120,7 +120,7 @@ with right_column:
     issue = "Rosacea"  # Placeholder for the detected issue
     st.markdown(
         f"""
-        <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 505px; overflow-y: auto;">
+        <div class="right-column-container" style="background-color: #1e4482AA; border-radius: 15px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); height: 520px; overflow-y: auto;">
             <div style="color: white; font-size: 22px; font-weight: bold; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px;">
                 Your Skin Issue(s)
             </div>
@@ -142,14 +142,64 @@ with right_column:
         unsafe_allow_html=True
     )
 
+st.markdown(
+    """
+    <style>
+    .dashed-line {
+        width: 100%; /* Takes up full width of the container */
+        border-top: 2px dashed #ccc; /* Adjust thickness and color as needed */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
+with left_column:
+    with st.container():
+        st.write('\n')
+        st.write('\n')
+        st.write('\n')
+        st.write('\n')      
+        st.subheader('''Effortlessly identify your acne type. ''')
+        st.write('''
+            spotSpot analyzes your skin with a simple photo capture, providing a clear diagnosis to guide your skincare journey. Knowing your acne type is the first step toward effective, personalized care.''')
 
+    with st.container():
+        st.subheader('''Follow the steps below to get started: ''')
+        st.write('''
+            \n1. Live Preview: Use the live camera feed to position your face. 
+            \n2. Capture Photo: Click "Take Photo" to take a photo. 
+            \n3. Recapture: If you’re not satisfied with the photo, click "Clear Photo" to try again. 
+            \n4. Analyze: Once you’re happy with the photo, click "Generate Analysis Results" to send it for analysis. 
+            \n5. Results: View the analysis results and get insights into your acne type and recommended treatments.''')
+        
+with right_column:
+    image = Image.open("acnetypes.png")
+    
+    # CSS for centering the image in the container
+    st.markdown(
+        """
+        <style>
+        .fixed-height-image {
+            height: 110px;  /* Set the total height of the container */
+            display: flex;
+            justify-content: center;  /* Centers the image horizontally */
+            align-items: center;  /* Centers the image vertically */
+            #padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .fixed-height-image img {
+            height: 300px;  /* Set the fixed height of the image */
+            object-fit: contain;  /* Ensures the image scales proportionally */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-with st.container():
-    st.subheader('''Follow the steps below to get started: ''')
-    st.write('''
-        \n1. Live Preview: Use the live camera feed to position your face. 
-        \n2. Capture Photo: Click the “Capture” button to take a photo. 
-        \n3. Recapture: If you’re not satisfied with the photo, click "Clear Photo" to try again. 
-        \n4. Analyze: Once you’re happy with the photo, click “Analyze” to send it for analysis. 
-        \n5. Results: View the analysis results and get insights into your acne type.''')
+    # Display the image within the centered container
+    st.markdown('<div class="fixed-height-image">', unsafe_allow_html=True)
+    st.image(image, use_container_width=True)  # Set to False if you want the image to be centered based on CSS
+    st.markdown('</div>', unsafe_allow_html=True)

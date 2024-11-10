@@ -15,19 +15,20 @@
             "Overly hot water and harsh exfoliants."
         ]
     },
-    "Perioral Dermatitis": {
+    "Papules": {
         "Routine": {
-            "Cleanser": "Opt for a mild, sulfate-free cleanser.",
-            "Moisturizer": "Use a lightweight, non-comedogenic moisturizer.",
-            "Sun Protection": "Apply a gentle mineral sunscreen."
+            "Cleanser": "Use a gentle, non-comedogenic cleanser to avoid clogging pores.",
+            "Exfoliation": "Incorporate gentle exfoliation 1-2 times per week to help clear dead skin cells.",
+            "Moisturizer": "Apply a lightweight, oil-free moisturizer to prevent excess oil buildup."
         },
         "Best Ingredients": {
-            "Azelaic Acid": "Reduces redness and inflammation.",
-            "Zinc": "Provides anti-inflammatory and soothing effects.",
-            "Niacinamide": "Calms irritation without clogging pores."
+            "Salicylic Acid": "Helps to unclog pores and reduce inflammation.",
+            "Niacinamide": "Reduces redness and soothes irritation.",
+            "Benzoyl Peroxide": "Kills acne-causing bacteria and reduces inflammation."
         },
         "Avoid": [
-            "Heavy creams, steroids, and products with strong fragrances or essential oils, as they can worsen symptoms."
+            "Heavy or greasy products, as they can clog pores and worsen papules.",
+            "Harsh scrubs that can irritate the skin and lead to further inflammation."
         ]
     },
     "Milia": {
@@ -44,7 +45,7 @@
             "Heavy, occlusive products around the eyes or on affected areas, as they can block pores."
         ]
     },
-    "Acne Pustular": {
+    "Pustules": {
         "Routine": {
             "Cleanser": "Use a cleanser with acne-fighting ingredients like salicylic acid.",
             "Spot Treatment": "Apply a targeted treatment to pustules as needed.",
@@ -59,7 +60,7 @@
             "Overly drying products, as they can irritate the skin and worsen inflammation."
         ]
     },
-    "Acne Open Comedo (Blackheads)": {
+    "Open Comedones (Blackheads)": {
         "Routine": {
             "Cleanser": "Use a salicylic acid cleanser to clear out pores.",
             "Exfoliation": "Incorporate a BHA exfoliant into the routine.",
@@ -74,7 +75,7 @@
             "Heavy oils, as they can further block pores and lead to more blackheads."
         ]
     },
-    "Acne Closed Comedo (Whiteheads)": {
+    "Closed Comedones (Whiteheads)": {
         "Routine": {
             "Cleanser": "Use a gentle cleanser with salicylic acid.",
             "Exfoliation": "Light exfoliation to clear pores (1-2 times per week).",
@@ -102,22 +103,6 @@
         },
         "Avoid": [
             "Harsh exfoliants or abrasive scrubs, which can worsen inflammation."
-        ]
-    },
-    "Acne Excoriated": {
-        "Routine": {
-            "Cleanser": "Use a mild, calming cleanser.",
-            "Healing Balm": "Apply soothing products to support skin recovery.",
-            "Moisturizer": "Use a non-irritating, hydrating moisturizer."
-        },
-        "Best Ingredients": {
-            "Aloe Vera and Panthenol": "Help calm and repair the skin barrier.",
-            "Niacinamide": "Reduces inflammation and helps with healing.",
-            "Centella Asiatica": "Known for its soothing and healing properties."
-        },
-        "Avoid": [
-            "Physical exfoliants or irritating products, which can worsen damaged skin.",
-            "Avoid touching or picking at the skin to prevent further irritation and scarring."
         ]
     }
 }
