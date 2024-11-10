@@ -104,5 +104,23 @@
         "Avoid": [
             "Harsh exfoliants or abrasive scrubs, which can worsen inflammation."
         ]
-    }
+    },
+    "Clear Skin": {
+        "Message": "Keep up the good work! Here are some recommendations for maintaining your skin in the long run.",
+        "Routine": {
+            "Cleanser": "Use a gentle, hydrating, and pH-balanced cleanser.",
+            "Moisturizer": "Apply a lightweight, hydrating moisturizer to maintain skin balance.",
+            "Sun Protection": "Use a broad-spectrum SPF 30+ sunscreen daily."
+        },
+        "Best Ingredients": {
+            "Hyaluronic Acid": "Deeply hydrates the skin and maintains moisture balance.",
+            "Ceramides": "Strengthens the skin barrier and helps retain moisture.",
+            "Antioxidants (Vitamin C, Green Tea)": "Protects skin from environmental damage and promotes a healthy glow."
+        },
+        "Avoid": [
+            "Harsh or overly drying products that may disrupt the skin barrier.",
+            "Skipping sunscreen, as UV exposure can damage skin health over time."
+    ]
+}
+
 }
