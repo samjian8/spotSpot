@@ -1,7 +1,6 @@
 /* CSS Snippet from W3schools: https://www.w3schools.com/howto/howto_css_contact_form.asp */
 /* Style inputs with type="text", select elements and textareas */
 
-
 /*
 Color Palette:
 #11113a
@@ -10,6 +9,15 @@ Color Palette:
 #1e4482
 #699337
 */
+
+body, .stApp {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  background: #78a3d0;
+  color: white; /* Set text color to contrast with background */
+}
 
 input[type=message], input[type=email], input[type=text], textarea {
     width: 100%; /* Full width */
@@ -32,13 +40,18 @@ input[type=message], input[type=email], input[type=text], textarea {
     cursor: pointer;
   }
   
+  
   /* When moving the mouse over the submit button, add a darker green color */
   button[type=submit]:hover {
     background-color: #78a3d0;
   }
   
+  p {
+    font-size: 16px;
+  }
   
   /* Hide Streamlit Branding */
   #MainMenu {visibility: hidden;}
   footer {visibility: hidden;}
   header {visibility: hidden;}
+

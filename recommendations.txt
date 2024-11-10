@@ -1,0 +1,108 @@
+{
+    "Rosacea": {
+        "Routine": {
+            "Cleanser": "Use a gentle, fragrance-free cleanser.",
+            "Moisturizer": "Apply a soothing, barrier-repairing moisturizer.",
+            "Sun Protection": "Use a mineral sunscreen daily to prevent flare-ups."
+        },
+        "Best Ingredients": {
+            "Niacinamide": "Calms inflammation and strengthens the skin barrier.",
+            "Aloe Vera": "Soothes redness and irritation.",
+            "Ceramides": "Help restore the skin barrier."
+        },
+        "Avoid": [
+            "Alcohol, menthol, and fragrance, as they can trigger rosacea.",
+            "Overly hot water and harsh exfoliants."
+        ]
+    },
+    "Papules": {
+        "Routine": {
+            "Cleanser": "Use a gentle, non-comedogenic cleanser to avoid clogging pores.",
+            "Exfoliation": "Incorporate gentle exfoliation 1-2 times per week to help clear dead skin cells.",
+            "Moisturizer": "Apply a lightweight, oil-free moisturizer to prevent excess oil buildup."
+        },
+        "Best Ingredients": {
+            "Salicylic Acid": "Helps to unclog pores and reduce inflammation.",
+            "Niacinamide": "Reduces redness and soothes irritation.",
+            "Benzoyl Peroxide": "Kills acne-causing bacteria and reduces inflammation."
+        },
+        "Avoid": [
+            "Heavy or greasy products, as they can clog pores and worsen papules.",
+            "Harsh scrubs that can irritate the skin and lead to further inflammation."
+        ]
+    },
+    "Milia": {
+        "Routine": {
+            "Cleanser": "Use a gentle, hydrating cleanser.",
+            "Exfoliation": "Regular gentle exfoliation (1-2 times per week).",
+            "Moisturizer": "Apply a lightweight, non-comedogenic moisturizer."
+        },
+        "Best Ingredients": {
+            "AHA/BHA (e.g., Glycolic Acid, Salicylic Acid)": "Helps exfoliate and prevent build-up.",
+            "Retinoids": "Promote cell turnover and can help prevent milia."
+        },
+        "Avoid": [
+            "Heavy, occlusive products around the eyes or on affected areas, as they can block pores."
+        ]
+    },
+    "Pustules": {
+        "Routine": {
+            "Cleanser": "Use a cleanser with acne-fighting ingredients like salicylic acid.",
+            "Spot Treatment": "Apply a targeted treatment to pustules as needed.",
+            "Moisturizer": "Choose a lightweight, oil-free moisturizer."
+        },
+        "Best Ingredients": {
+            "Benzoyl Peroxide": "Helps kill acne-causing bacteria.",
+            "Salicylic Acid": "Penetrates pores to remove excess oil and debris.",
+            "Tea Tree Oil (if tolerated)": "Has antibacterial properties."
+        },
+        "Avoid": [
+            "Overly drying products, as they can irritate the skin and worsen inflammation."
+        ]
+    },
+    "Open Comedones (Blackheads)": {
+        "Routine": {
+            "Cleanser": "Use a salicylic acid cleanser to clear out pores.",
+            "Exfoliation": "Incorporate a BHA exfoliant into the routine.",
+            "Moisturizer": "Lightweight and non-comedogenic."
+        },
+        "Best Ingredients": {
+            "Salicylic Acid": "Clears out pores and reduces blackheads.",
+            "Clay": "Absorbs excess oil and draws out impurities.",
+            "Retinoids": "Help prevent pores from clogging."
+        },
+        "Avoid": [
+            "Heavy oils, as they can further block pores and lead to more blackheads."
+        ]
+    },
+    "Closed Comedones (Whiteheads)": {
+        "Routine": {
+            "Cleanser": "Use a gentle cleanser with salicylic acid.",
+            "Exfoliation": "Light exfoliation to clear pores (1-2 times per week).",
+            "Moisturizer": "Use an oil-free moisturizer."
+        },
+        "Best Ingredients": {
+            "Salicylic Acid": "Unclogs pores and prevents buildup.",
+            "Niacinamide": "Controls oil and soothes skin.",
+            "Retinoids": "Helps prevent pores from clogging."
+        },
+        "Avoid": [
+            "Thick, comedogenic creams that can trap oil and debris inside pores."
+        ]
+    },
+    "Acne Cystic": {
+        "Routine": {
+            "Cleanser": "Use a gentle, non-irritating cleanser.",
+            "Treatment": "For severe cysts, consult a dermatologist for professional options.",
+            "Moisturizer": "Hydrating, soothing, and oil-free."
+        },
+        "Best Ingredients": {
+            "Benzoyl Peroxide": "Reduces bacteria and inflammation.",
+            "Sulfur": "Can help dry out cysts and reduce inflammation.",
+            "Aloe Vera": "Soothes skin and reduces irritation."
+        },
+        "Avoid": [
+            "Harsh exfoliants or abrasive scrubs, which can worsen inflammation."
+        ]
+    }
+}
