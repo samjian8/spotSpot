@@ -1,3 +1,6 @@
+## spotSpot
+This project was built at CtrlHackDel 2024 @ York University. Developed by Nathan Lu, Toni Zeng, Sam Jian and Rishi Umaria.
+
 ## Inspiration
 This project was inspired by a desire to impact healthcare, particularly given that over 1 in 6 people in Ontario lack access to a primary care physician, with average specialist wait times of 11 weeks. The rise of telemedicine highlighted the potential of virtual solutions, leading us to create a digital tool that requires no human intervention. We focused on acne due to its prevalence, especially among youth, and its effect on self-esteem. Our goal is to improve lives while easing the workload for physicians.
 
