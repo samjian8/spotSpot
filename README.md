@@ -7,8 +7,9 @@ spotSpot works by simply taking an image of your face. Users can choose to take 
 ## How we built it
 We built this classifier in Python using PyTorch's ShuffleNet Conventional Neural Network as it was the most effective and efficient for our training data, especially since our dataset was small. By taking the labelled images as a training set for our classification, we were able to augment each training picture with our model and improve accuracy when we ran full face scans. We fine-tuned our training model to improve accuracy while mitigating overfitting by implementing weights to all of the different acne classes depending on the number of training images as well as finding the optimal training-reruns using trial and error.
 
-Devpost Link: https://devpost.com/software/spotspot-gdfxez?ref_content=my-projects-tab&ref_feature=my_projects
-Demo Link: https://youtu.be/9hEZ1sQ6yUs
+Devpost Link: [https://devpost.com/software/spotspot-gdfxez?ref_content=my-projects-tab&ref_feature=my_projects](https://devpost.com/software/spotspot-gdfxez?ref_content=my-projects-tab&ref_feature=my_projects)
+
+Demo Link: [https://youtu.be/9hEZ1sQ6yUs](https://youtu.be/9hEZ1sQ6yUs)
 
 ## Setup
 1. Git Clone
