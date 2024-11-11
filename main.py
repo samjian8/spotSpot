@@ -1,8 +1,6 @@
-# Import modules here
-import streamlit as st  # type: ignore
-import cv2  # type: ignore
-from PIL import Image  # type: ignore
-import numpy as np  # type: ignore
+import streamlit as st 
+from PIL import Image 
+import numpy as np 
 import json
 import base64
 import torch
@@ -15,11 +13,11 @@ with open("recommendations.txt", "r") as file:
 # Load the pre-trained model only once
 num_classes = 7
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = models.shufflenet_v2_x0_5(pretrained=False)  # Use the model architecture you trained
-model.fc = torch.nn.Linear(model.fc.in_features, num_classes)  # Modify the final layer as needed
-model.load_state_dict(torch.load('model.pth'))  # Load the saved model weights
-model = model.to(device)  # Move the model to the correct device
-model.eval()  # Set the model to evaluation mode
+model = models.shufflenet_v2_x0_5(pretrained=False)  
+model.fc = torch.nn.Linear(model.fc.in_features, num_classes)  
+model.load_state_dict(torch.load('model.pth')) 
+model = model.to(device)  
+model.eval()  
 
 # Define image transformations
 transform = transforms.Compose([
@@ -49,19 +47,14 @@ def analyze_acne(image):
     
     return class_label
 
-
-
-# Page Title
 st.set_page_config(page_title="spotSpot", page_icon="sslogo.png", layout="wide")
 
-# Use Local CSS
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 local_css("style/style.css")
 
-# Load the image and convert it to base64
 def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
@@ -80,7 +73,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 537fad 1e4482 31317d
 with st.container():
     st.markdown(
         """
@@ -160,13 +152,11 @@ st.markdown(
 
 with st.container():
     left_column, right_column = st.columns(2)
-## fix the before
 # Initialize session state variables if not already done
 if "photo_captured" not in st.session_state:
     st.session_state.photo_captured = None
 if "acne_issue" not in st.session_state:
     st.session_state.acne_issue = ""  # Initialize with an empty string
-
 
 with left_column:
     with st.container():
@@ -186,7 +176,7 @@ with left_column:
             # Check if a photo is captured or uploaded
             if st.session_state.photo_captured is not None:
                 img = Image.open(st.session_state.photo_captured)
-                img_array = np.array(img)  # Convert image to numpy array
+                img_array = np.array(img)  
 
                 # Send the image to the backend for analysis and store the result in session state
                 st.session_state.acne_issue = analyze_acne(img_array)
@@ -274,7 +264,6 @@ with right_column:
             unsafe_allow_html=True
         )
 
-
 st.markdown(
     """
     <style>
@@ -311,7 +300,6 @@ with left_column:
 with right_column:
     image = Image.open("acnetypes.png")
     
-    # CSS for centering the image in the container
     st.markdown(
         """
         <style>
@@ -332,7 +320,6 @@ with right_column:
         unsafe_allow_html=True
     )
 
-    # Display the image within the centered container
     st.markdown('<div class="fixed-height-image">', unsafe_allow_html=True)
-    st.image(image, use_container_width=True)  # Set to False if you want the image to be centered based on CSS
+    st.image(image, use_container_width=True) 
     st.markdown('</div>', unsafe_allow_html=True)
